@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <style>
         .color-btn-add{
         background: rgb(233,34,40);
@@ -43,7 +44,8 @@
 
 <!--bnt for saving Discographic sellout -->
 <div class="row">
-    <a  class="btn  btn-sm- mb3 color-btn-add"><p class="text-btn-add"><b>Add Discographic sellout</b></p></a>
+    <a th:href="@{/album/new}" class="btn  btn-sm- mb3 color-btn-add"><p class="text-btn-add"><b>Add Discographic
+        sellout</b></p></a>
 </div>
 
 <!-- Div Container--->
@@ -55,17 +57,17 @@
     <!-- Error Message-->
     <!--The message will be displayed if the record is not added-->
     <div class="alert alert-danger">
-        <p ></p>
+        <p></p>
     </div>
     <!-- Success Message -->
     <!--The message will be displayed if the record is deleted -->
-    <div  class="alert alert-success">
-        <p ></p>
+    <div class="alert alert-success">
+        <p></p>
     </div>
 
 
-<table class="table">
-    <thead class="table-dark">
+    <table class="table">
+        <thead class="table-dark">
         <tr>
             <th>Artist Name</th>
             <th>Album Title</th>
@@ -73,29 +75,55 @@
             <th>Release Date</th>
             <th>Action</th>
         </tr>
-    </thead>
-    <tbody>
-    <tr th:each="album : ${albumWithArtist}">
-        <td th:text="${album[0]}"></td>
-        <td th:text="${album[1]}"></td>
-        <td th:text="${album[2]}"></td>
-        <td th:text="${#dates.format(album[3], 'dd/MM/yyyy')}"></td><!--This code is for showing data of the type Date -->
+        </thead>
+        <tbody>
+        <tr th:each="album : ${albumWithArtist}">
+            <td th:text="${album[0]}"></td>
+            <td th:text="${album[1]}"></td>
+            <td th:text="${album[2]}"></td>
+            <td th:text="${#dates.format(album[3], 'dd/MM/yyyy')}"></td>
+            <!--This code is for showing data of the type Date -->
 
-        <td>
-            <a class="btn" style="background-color:#3A5EAB;">
-                <img th:src="@{/img/edit.png}" alt="Logo" width="17" height="17" class="d-inline-block align-top">
-            </a>
-            <a class="btn" style="background-color:red;">
-                <img th:src="@{/img/delete.png}" alt="Logo" width="17" height="17" class="d-inline-block align-top">
-            </a>
-            <a  th:href="@{/album/about}" class="btn" style="background-color:green;">
-                <img th:src="@{/img/eye.png}" alt="Logo" width="17" height="17" class="d-inline-block align-top">
-            </a>
-        </td>
-    </tr>
-    </tbody>
+            <td>
+                <a class="btn" style="background-color:#3A5EAB;">
+                    <img th:src="@{/img/edit.png}" alt="Logo" width="17" height="17" class="d-inline-block align-top">
+                </a>
+                <button type="button" class="btn btn-danger"
+                        data-bs-toggle="modal"
+                        data-bs-target="#confirmModal"
+                        th:data-id="${album[0]}">
+                    <img th:src="@{/img/delete.png}" alt="Logo" width="17" height="17" class="d-inline-block align-top">
+                </button>
+                <a th:href="@{/album/about}" class="btn" style="background-color:green;">
+                    <img th:src="@{/img/eye.png}" alt="Logo" width="17" height="17" class="d-inline-block align-top">
+                </a>
+            </td>
+        </tr>
+        </tbody>
 
-</table>
+    </table>
+
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel"  aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Confirmation of elimination</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Are you sure  You want to delete this record?
+                </div>
+                <div class="modal-footer">
+                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                      <form id="deleteForm" method="post">
+                          <button type="submit" class="btn btn-danger" id="confirmDelete">Yes</button>
+                      </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 </div>
 <!--Developer By Luis Rdrgz
 
@@ -105,6 +133,17 @@
  will show the validation message
 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+<script>
+    document.querySelectorAll('[data-bs-target="#confirmModal"]').forEach(button => {
+        button.addEventListener('click', function() {
+            const id = this.getAttribute('data-id'); // Obtener el ID del botón
+            const form = document.getElementById('deleteForm'); // Obtener el formulario
+            form.setAttribute('action', `/album/{id}/delete`); // Establecer la URL de acción del formulario
+        });
+    });
+</script>
 </body>
 </html>

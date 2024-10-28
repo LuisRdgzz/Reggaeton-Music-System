@@ -1,0 +1,81 @@
+<!doctype html>
+<html html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand text-white" href="#">
+            <img th:src="@{/img/PuertoRicoFlag.png}" alt="Logo" width="30" height="30" class="d-inline-block align-top">
+            PR
+        </a>
+
+        <div class="collapse navbar-collapse text-white" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Artist</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Albunmes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Producer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Discographic sellout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<br><br>
+<div class="d-flex justify-content-center align-items-center full-height">
+    <div class="col-lg-6 col-md-8 col-sm-10 card p-4">
+        <center><h3 >Album</h3></center>
+        <div class="card-body">
+            <form th:action="@{/album}" th:object="${album}" method="POST">
+                <div class="form-group">
+                    <label>Name Album</label>
+                    <input type="text" name="title"  th:field="*{title}" class="form-control" placeholder="Enter Album Name">
+                </div>
+                <div class="form-group">
+                    <label>Genre</label>
+                    <select name="genre" th:field="*{genre}" class="form-control">
+                        <option value="Reggaeton">Reggaeton</option>
+                        <option value="Trap Latino">Trap Latino</option>
+                        <option value="Dembow">Dembow</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Release Date</label>
+                    <input type="date" name="releaseDate" th:field="*{releaseDate}" class="form-control" >
+                </div>
+                <div class="form-group">
+                    <label>Artist</label>
+                    <!-- THIRD STEP FOR SHOWING SELECT-->
+                    <select name="artist" id="artist" class="form-select" aria-label="Default select example" th:field="*{artist}">
+                        <option value="">Select Any Artist</option>
+                        <th:block th:each="artist : ${artists}">
+                            <option th:value="${artist.id}" th:text="${artist.name}"></option>
+                        </th:block>
+
+                    </select>
+                </div>
+
+                <br>
+                <div class="box-footer m2">
+                    <button class="btn btn-success m2">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</body>
+</html>
