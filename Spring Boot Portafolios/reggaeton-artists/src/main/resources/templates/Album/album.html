@@ -1,0 +1,110 @@
+<!doctype html>
+<html html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <style>
+        .color-btn-add{
+        background: rgb(233,34,40);
+        background: linear-gradient(90deg, rgba(233,34,40,1) 20%, rgba(58,94,171,1) 75%);
+        }
+        .text-btn-add{
+        color:#fff;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand text-white" href="#">
+            <img th:src="@{/img/PuertoRicoFlag.png}" alt="Logo" width="30" height="30" class="d-inline-block align-top">
+            PR
+        </a>
+        <div class="collapse navbar-collapse text-white" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Artist</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Albunmes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Producer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Discographic sellout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!--bnt for saving Discographic sellout -->
+<div class="row">
+    <a  class="btn  btn-sm- mb3 color-btn-add"><p class="text-btn-add"><b>Add Discographic sellout</b></p></a>
+</div>
+
+<!-- Div Container--->
+<div class="container">
+    <div class="row">
+        <center><h1>List of Discographic sellout</h1></center>
+    </div>
+
+    <!-- Error Message-->
+    <!--The message will be displayed if the record is not added-->
+    <div class="alert alert-danger">
+        <p ></p>
+    </div>
+    <!-- Success Message -->
+    <!--The message will be displayed if the record is deleted -->
+    <div  class="alert alert-success">
+        <p ></p>
+    </div>
+
+
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <th>Artist Name</th>
+            <th>Album Title</th>
+            <th>Genre</th>
+            <th>Release Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr th:each="album : ${albumWithArtist}">
+        <td th:text="${album[0]}"></td>
+        <td th:text="${album[1]}"></td>
+        <td th:text="${album[2]}"></td>
+        <td th:text="${#dates.format(album[3], 'dd/MM/yyyy')}"></td><!--This code is for showing data of the type Date -->
+
+        <td>
+            <a class="btn" style="background-color:#3A5EAB;">
+                <img th:src="@{/img/edit.png}" alt="Logo" width="17" height="17" class="d-inline-block align-top">
+            </a>
+            <a class="btn" style="background-color:red;">
+                <img th:src="@{/img/delete.png}" alt="Logo" width="17" height="17" class="d-inline-block align-top">
+            </a>
+            <a  th:href="@{/album/about}" class="btn" style="background-color:green;">
+                <img th:src="@{/img/eye.png}" alt="Logo" width="17" height="17" class="d-inline-block align-top">
+            </a>
+        </td>
+    </tr>
+    </tbody>
+
+</table>
+</div>
+<!--Developer By Luis Rdrgz
+
+ V1-UPDATE 23nd october 2024
+ Today I worked in validation and show a modal (Modal for deleting productora), and also I made a validation ,
+ When We want to delete a productora but this productora is related to any producer it cannot be delete and
+ will show the validation message
+-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</body>
+</html>

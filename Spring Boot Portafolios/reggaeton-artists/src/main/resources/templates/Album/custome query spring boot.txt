@@ -1,0 +1,80 @@
+To create a custome query on spring boot the structure is the next
+
+#FIRST
+We create Repository in this case we will take as example AlbumRepository
+
+********************************************************AlbumRepository*************************************************
+@Repository
+public interface AlbumRepositorio extends JpaRepository<Album , Long> {
+    @Query("SELECT ar.name, al.title, al.genre, al.releaseDate " +
+            "FROM Album al " +
+            "JOIN al.artist ar")
+    List<Object[]> findAllAlbumArtist();
+
+}
+
+#SECOND
+********************************************************AlbumService*************************************************
+public interface AlbumService {
+
+    List<Object[]> getAllAlbumArtist();
+
+}
+
+
+#Third
+********************************************************AlbumServiceImpl************************************************
+@Service
+public class AlbumServiceImpl implements AlbumService{
+
+    @Autowired
+    private AlbumRepositorio albumRepositorio;
+
+    @Override
+    public List<Object[]> getAllAlbumArtist() {
+        return albumRepositorio.findAllAlbumArtist();
+    }
+}
+
+#Fourth
+********************************************************AlbumController************************************************
+@Controller
+public class AlbumController {
+
+    @Autowired
+    private AlbumService albumService;
+
+    @GetMapping("/album")
+    public String listAlbums(Model model){
+        List<Object[]> albumWithArtist = albumService.getAllAlbumArtist();
+        model.addAttribute("albumWithArtist" , albumWithArtist);
+        return "Album/album";
+    }
+
+}
+#Five
+********************************************************Album HTML************************************************
+<table>
+    <tr>
+        <th>Artist Name</th>
+        <th>Album Title</th>
+        <th>Genre</th>
+        <th>Release Date</th>
+    </tr>
+    <tr th:each="album : ${albumWithArtist}">
+        <td th:text="${album[0]}"></td>
+        <td th:text="${album[1]}"></td>
+        <td th:text="${album[2]}"></td>
+    </tr>
+</table>
+
+
+
+
+<!--Developer By Luis Rdrgz
+
+ V2-UPDATE 22nd october 2024
+ Today I worked in validation and show a modal (Modal for deleting productora), and also I made a validation ,
+ When We want to delete a productora but this productora is related to any producer it cannot be delete and
+ will show the validation message
+-->
