@@ -1,8 +1,10 @@
 package com.reggaeton.artists.reggaeton_artists.Entity;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +18,10 @@ public class Artist {
     @Lob
     private byte[] img;
 
+
+
     private String name;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
     private String  countryOfOrigin;
     private Integer yearsActive;
@@ -46,7 +51,12 @@ public class Artist {
     public void setId(Long id) {
         this.id = id;
     }
-
+    public String getImgBase64(){
+        if(img != null){
+            return Base64.getEncoder().encodeToString(img);
+        }
+        return null;
+    }
     public byte[] getImg() {
         return img;
     }

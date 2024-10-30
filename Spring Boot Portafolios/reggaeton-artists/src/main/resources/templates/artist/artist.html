@@ -68,7 +68,11 @@
         <!-- ${student} is from StudentController modelo.addAttribute("student",service.listAllStudent());-->
         <tr th:each="artist :${artist}">
             <!-- To access the data of the variable or table we do it with the following code  th:text="${astudent.name}" -->
-            <td th:text="${artist.img}">Photo</td>
+            <td>
+                <img th:src="${artist.imgBase64 != null ? 'data:image/png;base64,' + artist.imgBase64 : '@{/img/icon_regguetonero.png}'}"
+                     alt="Artist Photo" style="width: 25px; height:25px;">
+
+            </td>
             <td th:text="${artist.name}">Name</td>
             <td th:text="${artist.birthDate}">Name</td>
             <th th:text="${artist.countryOfOrigin}">Country</th>

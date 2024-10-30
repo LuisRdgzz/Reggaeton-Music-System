@@ -90,8 +90,7 @@
                 </a>
                 <button type="button" class="btn btn-danger"
                         data-bs-toggle="modal"
-                        data-bs-target="#confirmModal"
-                        th:data-id="${album[0]}">
+                        data-bs-target="#confirmModal">
                     <img th:src="@{/img/delete.png}" alt="Logo" width="17" height="17" class="d-inline-block align-top">
                 </button>
                 <a th:href="@{/album/about}" class="btn" style="background-color:green;">
@@ -106,7 +105,7 @@
     <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel"  aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-better">
                     <h5 class="modal-title" id="confirmModalLabel">Confirmation of elimination</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
